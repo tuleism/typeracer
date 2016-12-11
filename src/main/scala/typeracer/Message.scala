@@ -27,3 +27,7 @@ sealed trait PlayerInput
 case object NewGame extends PlayerInput
 
 case class AtPosition(player: Player, position: Int) extends PlayerInput
+
+case class RoomRequest(player: Player, ref: ActorRef)
+
+case class AssignedRoom(ref: ActorRef)
