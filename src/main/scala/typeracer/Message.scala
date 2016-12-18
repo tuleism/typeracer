@@ -1,6 +1,7 @@
 package typeracer
 
 import akka.actor.ActorRef
+import spray.json.DefaultJsonProtocol
 
 case class Player(id: String, name: String)
 
@@ -31,3 +32,21 @@ case class AtPosition(player: Player, position: Int) extends PlayerInput
 case class RoomRequest(player: Player, ref: ActorRef)
 
 case class AssignedRoom(ref: ActorRef)
+
+trait GameEventMarshalling extends DefaultJsonProtocol {
+
+  import spray.json._
+
+  implicit val playerFormat = jsonFormat2(Player)
+  implicit val playerStateFormat = jsonFormat3(PlayerState)
+  implicit val problemStatementFormat = jsonFormat2(ProblemStatement)
+
+  implicit object playerStatePairWriter extends RootJsonWriter[(Player, PlayerState)] {
+    def write(obj: (Player, PlayerState)) =
+      JsObject(
+        "player" -> obj._1.toJson,
+        "state" -> obj._2.toJson
+      )
+  }
+
+}
