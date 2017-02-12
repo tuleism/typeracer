@@ -1,0 +1,21 @@
+<div class="container">
+  <div class="row col-md-offset-2">
+    <div class="col-md-8">
+      <h1 class="text-center">
+        <span class="glyphicon glyphicon-console" aria-hidden="true"></span>
+        typeracer
+      </h1>
+    </div>
+  </div>
+  <div *ngIf="!isPlayerSet" class="row col-md-offset-2" >
+    <div class="col-md-8">
+      <input class="form-control"
+        [(ngModel)]="playerName" (keyup.enter)="savePlayerName()"
+        placeholder="Enter your name" />
+    </div>
+  </div>
+  <div *ngIf="isPlayerSet">
+    <app-racing></app-racing>
+    <app-typing></app-typing>
+  </div>
+</div>

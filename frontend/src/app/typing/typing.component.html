@@ -1,0 +1,35 @@
+<div class="row col-md-offset-2 quote">
+  <div class="col-md-8">
+    <span>{{ pastWords.join(" ") }}</span>
+    <span style="text-decoration: underline" [style.color]="getCurrentWordStyle()">{{ currentWord }}</span>
+    <span>{{ futureWords.join(" ") }}</span>
+  </div>
+</div>
+<div class="row col-md-offset-2">
+  <div class="col-md-8">
+    <input class="form-control"
+      disabled
+      *ngIf="disableRaceInput()"
+      placeholder="Type the above text here when the race begins"/>
+    <input class="form-control"
+      [style.background-color]="getInputStyle()"
+      [(ngModel)]="currentInput" (ngModelChange)="onInputChange()"
+      *ngIf="isRacing()"
+      autofocus/>
+    <button type="button" class="btn btn-success form-control" *ngIf="hasFinished()" (click)="replay()">
+      Replay
+      <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>
+    </button>
+  </div>
+</div>
+
+<div bsModal #childModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true"
+  [config]="{backdrop: 'static'}">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-body">
+        <h3 class="text-center">{{ modalContent }}</h3>
+      </div>
+    </div>
+  </div>
+</div>

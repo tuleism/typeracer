@@ -1,0 +1,48 @@
+<div *ngIf="isWaitingForPlayers()" class="row col-md-offset-2">
+  <div class="col-md-8">
+    <h2 class="text-center">
+      <span class="glyphicon glyphicon-repeat spinning" aria-hidden="true"></span>
+      Waiting for players
+    </h2>
+  </div>
+</div>
+<div *ngIf="raceState">
+  <div class="row col-md-offset-2">
+    <div class="col-md-1">You</div>
+    <div class="col-md-7">
+      <div class="col-md-10">
+        <progressbar [max]="raceLength" [value]="raceState.current.state.position">
+          {{ raceState.current.state.wpm }} wpm
+          <img src="../assets/images/racing.svg" height="30px">
+        </progressbar>
+      </div>
+      <div class="col-md-2">
+        <span class="glyphicon glyphicon-flag" aria-hidden="true" *ngIf="!raceState.current.state.rank"></span>
+        <span *ngIf="raceState.current.state.rank">
+          Rank {{ raceState.current.state.rank }}
+        </span>
+      </div>
+    </div>
+  </div>
+  <div *ngFor="let other of raceState.others">
+    <div class="row col-md-offset-2">
+      <div class="col-md-1">
+        {{ other.player.name }}
+      </div>
+      <div class="col-md-7">
+        <div class="col-md-10">
+          <progressbar [max]="raceLength" [value]="other.state.position" type="warning">
+            {{ other.state.wpm }} wpm
+            <img src="../assets/images/racing.svg" height="30px">
+          </progressbar>
+        </div>
+        <div class="col-md-2">
+          <span class="glyphicon glyphicon-flag" aria-hidden="true" *ngIf="!other.state.rank"></span>
+          <span *ngIf="other.state.rank">
+            Rank {{ other.state.rank }}
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
